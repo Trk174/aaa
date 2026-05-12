@@ -5,6 +5,9 @@ on:
     - cron: "0 8 * * *"
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   run-bot:
     runs-on: ubuntu-latest
@@ -27,3 +30,11 @@ jobs:
             --url "$SITE_URL" \
             --min-hours 6 \
             --max-hours 18
+
+      - name: 💾 Salvează statistici în repo
+        run: |
+          git config user.name "Site Bot"
+          git config user.email "bot@github.com"
+          git add stats.json
+          git diff --staged --quiet || git commit -m "📊 Stats actualizate $(date -u +'%Y-%m-%d')"
+          git push
