@@ -1,0 +1,30 @@
+name: 🤖 Daily Site Bot
+
+on:
+  schedule:
+    # Rulează în fiecare zi la 08:00 UTC
+    - cron: "0 8 * * *"
+  workflow_dispatch:   # permite și rulare manuală din GitHub UI
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 1200   # 20 ore max (18h bot + buffer)
+
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 🤖 Run site bot
+        env:
+          SITE_URL: ${{ secrets.SITE_URL }}
+        run: |
+          python site_bot.py \
+            --url "$SITE_URL" \
+            --min-hours 6 \
+            --max-hours 18
