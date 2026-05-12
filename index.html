@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Site Bot — Dashboard</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2235;
+    --border: #1f2d45;
+    --accent: #3b82f6;
+    --accent2: #06b6d4;
+    --green: #10b981;
+    --red: #ef4444;
+    --amber: #f59e0b;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+
+  /* grid noise background */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    display: flex; align-items: center; gap: 12px;
+  }
+
+  .logo-icon {
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+
+  h1 { font-size: 20px; font-weight: 600; letter-spacing: -0.3px; }
+  .subtitle { font-size: 12px; color: var(--muted); font-family: var(--mono); }
+
+  .last-refresh { font-size: 12px; color: var(--muted); font-family: var(--mono); }
+
+  /* Status badge */
+  .status-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 13px; font-weight: 500;
+    border: 1px solid;
+  }
+  .status-badge.active {
+    background: rgba(16,185,129,0.1);
+    border-color: rgba(16,185,129,0.3);
+    color: var(--green);
+  }
+  .status-badge.inactive {
+    background: rgba(100,116,139,0.1);
+    border-color: rgba(100,116,139,0.3);
+    color: var(--muted);
+  }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: currentColor;
+  }
+  .dot.pulse { animation: pulse 2s infinite; }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  /* Cards grid */
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+  }
+
+  .card-label {
+    font-size: 11px; font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-value {
+    font-size: 28px; font-weight: 600;
+    font-family: var(--mono);
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+
+  .card-sub {
+    font-size: 12px; color: var(--muted);
+    margin-top: 4px; font-family: var(--mono);
+  }
+
+  .card-value.blue { color: var(--accent); }
+  .card-value.green { color: var(--green); }
+  .card-value.amber { color: var(--amber); }
+  .card-value.cyan { color: var(--accent2); }
+
+  /* Timeline table */
+  .section-title {
+    font-size: 13px; font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 1rem;
+  }
+
+  .history-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  .history-table th {
+    text-align: left;
+    padding: 8px 12px;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .history-table td {
+    padding: 12px;
+    border-bottom: 1px solid rgba(31,45,69,0.5);
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text);
+  }
+
+  .history-table tr:last-child td { border-bottom: none; }
+  .history-table tr:hover td { background: var(--surface2); }
+
+  .table-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .bar-wrap { display: flex; align-items: center; gap: 8px; }
+  .bar-bg { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transition: width 0.5s; }
+
+  .no-data {
+    text-align: center; padding: 3rem;
+    color: var(--muted); font-family: var(--mono); font-size: 14px;
+  }
+
+  .error-banner {
+    background: rgba(239,68,68,0.1);
+    border: 1px solid rgba(239,68,68,0.3);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    color: #fca5a5;
+    font-size: 13px;
+    margin-bottom: 1.5rem;
+    display: none;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="logo">
+      <div class="logo-icon">🤖</div>
+      <div>
+        <h1>Site Bot</h1>
+        <div class="subtitle">monitoring dashboard</div>
+      </div>
+    </div>
+    <div id="statusBadge" class="status-badge inactive">
+      <div class="dot" id="dot"></div>
+      <span id="statusText">Se încarcă...</span>
+    </div>
+  </header>
+
+  <div class="error-banner" id="errorBanner">
+    ⚠️ Nu s-a putut încărca <code>stats.json</code>. Asigură-te că botul a rulat cel puțin o dată.
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-label">Vizite azi</div>
+      <div class="card-value green" id="todayVisits">—</div>
+      <div class="card-sub" id="todayDate">—</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Durată sesiune</div>
+      <div class="card-value blue" id="duration">—</div>
+      <div class="card-sub">ore active</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Interval (min–max)</div>
+      <div class="card-value amber" id="interval">—</div>
+      <div class="card-sub">minute între vizite</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Total zile rulate</div>
+      <div class="card-value cyan" id="totalDays">—</div>
+      <div class="card-sub">din istoric</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:1.5rem">
+    <div class="card-label">Ultima activitate</div>
+    <div style="display:flex; gap:2rem; margin-top:0.5rem; flex-wrap:wrap;">
+      <div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:2px;">START</div>
+        <div style="font-family:var(--mono);font-size:14px;" id="lastStart">—</div>
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:2px;">STOP</div>
+        <div style="font-family:var(--mono);font-size:14px;" id="lastEnd">—</div>
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:2px;">URL</div>
+        <div style="font-family:var(--mono);font-size:14px;color:var(--accent2);" id="siteUrl">—</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">Istoric rulări (ultimele 30 zile)</div>
+  <div class="table-wrap">
+    <table class="history-table">
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Start</th>
+          <th>Stop</th>
+          <th>Durată</th>
+          <th>Vizite</th>
+          <th>Interval mediu</th>
+          <th>Activitate</th>
+        </tr>
+      </thead>
+      <tbody id="historyBody">
+        <tr><td colspan="7" class="no-data">Se încarcă datele...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:1rem; font-size:11px; color:var(--muted); text-align:right; font-family:var(--mono);">
+    Auto-refresh la 60s &nbsp;·&nbsp; <span id="lastRefresh">—</span>
+  </div>
+
+</div>
+
+<script>
+  function fmt(iso) {
+    if (!iso) return '—';
+    const d = new Date(iso);
+    return d.toLocaleTimeString('ro-RO', { hour: '2-digit', minute: '2-digit' });
+  }
+
+  function fmtDate(str) {
+    if (!str) return '—';
+    const [y, m, d] = str.split('-');
+    return `${d}.${m}.${y}`;
+  }
+
+  function maxVisits(history) {
+    return Math.max(...history.map(r => r.visits), 1);
+  }
+
+  async function loadStats() {
+    try {
+      const res = await fetch('stats.json?t=' + Date.now());
+      if (!res.ok) throw new Error('not found');
+      const s = await res.json();
+
+      document.getElementById('errorBanner').style.display = 'none';
+
+      // Status badge
+      const badge = document.getElementById('statusBadge');
+      const dot = document.getElementById('dot');
+      const statusText = document.getElementById('statusText');
+      const isActive = s.status === 'active';
+      badge.className = 'status-badge ' + (isActive ? 'active' : 'inactive');
+      dot.className = 'dot' + (isActive ? ' pulse' : '');
+      statusText.textContent = isActive ? 'Activ acum' : 'Inactiv';
+
+      // Cards
+      const today = s.history && s.history[0];
+      document.getElementById('todayVisits').textContent = today ? today.visits : '0';
+      document.getElementById('todayDate').textContent = today ? fmtDate(today.date) : '—';
+      document.getElementById('duration').textContent = s.duration_hours ? s.duration_hours.toFixed(1) : '—';
+      const minI = s.min_interval_sec ? Math.round(s.min_interval_sec / 60) : '—';
+      const maxI = s.max_interval_sec ? Math.round(s.max_interval_sec / 60) : '—';
+      document.getElementById('interval').textContent = minI + '–' + maxI;
+      document.getElementById('totalDays').textContent = (s.history || []).length;
+
+      // Last activity
+      document.getElementById('lastStart').textContent = s.last_start ? fmt(s.last_start) + ' UTC' : '—';
+      document.getElementById('lastEnd').textContent = s.last_end ? fmt(s.last_end) + ' UTC' : (isActive ? 'în curs...' : '—');
+      document.getElementById('siteUrl').textContent = s.url || '—';
+
+      // History table
+      const body = document.getElementById('historyBody');
+      const hist = s.history || [];
+      if (hist.length === 0) {
+        body.innerHTML = '<tr><td colspan="7" class="no-data">Nicio rulare înregistrată încă.</td></tr>';
+      } else {
+        const mx = maxVisits(hist);
+        body.innerHTML = hist.map((r, i) => {
+          const pct = Math.round((r.visits / mx) * 100);
+          const avgMin = r.avg_interval_sec ? Math.round(r.avg_interval_sec / 60) : '—';
+          const isToday = i === 0;
+          return `<tr>
+            <td style="color:${isToday ? 'var(--accent2)' : 'inherit'}">${fmtDate(r.date)}${isToday ? ' <span style="font-size:10px;color:var(--accent2)">azi</span>' : ''}</td>
+            <td>${fmt(r.start)}</td>
+            <td>${fmt(r.end)}</td>
+            <td>${r.duration_hours ? r.duration_hours.toFixed(1) + 'h' : '—'}</td>
+            <td style="color:var(--green);font-weight:500">${r.visits}</td>
+            <td>${avgMin} min</td>
+            <td>
+              <div class="bar-wrap">
+                <div class="bar-bg"><div class="bar-fill" style="width:${pct}%"></div></div>
+                <span style="font-size:11px;color:var(--muted);min-width:30px">${pct}%</span>
+              </div>
+            </td>
+          </tr>`;
+        }).join('');
+      }
+
+    } catch (e) {
+      document.getElementById('errorBanner').style.display = 'block';
+      document.getElementById('historyBody').innerHTML =
+        '<tr><td colspan="7" class="no-data">Nu s-au găsit date. Rulează botul o dată pentru a genera stats.json.</td></tr>';
+    }
+
+    document.getElementById('lastRefresh').textContent =
+      'actualizat la ' + new Date().toLocaleTimeString('ro-RO');
+  }
+
+  loadStats();
+  setInterval(loadStats, 60000);
+</script>
+</body>
+</html>
