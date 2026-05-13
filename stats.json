@@ -1,1 +1,253 @@
 
+{
+  "status": "inactive",
+  "url": "https://example.com",
+  "last_start": "2026-05-13T08:03:12Z",
+  "last_end": "2026-05-13T21:47:38Z",
+  "duration_hours": 13.74,
+  "min_interval_sec": 60,
+  "max_interval_sec": 360,
+  "last_visits": 187,
+  "history": [
+    {
+      "date": "2026-05-13",
+      "start": "2026-05-13T08:03:12Z",
+      "end": "2026-05-13T21:47:38Z",
+      "duration_hours": 13.74,
+      "visits": 187,
+      "avg_interval_sec": 264
+    },
+    {
+      "date": "2026-05-12",
+      "start": "2026-05-12T08:01:44Z",
+      "end": "2026-05-12T23:58:21Z",
+      "duration_hours": 15.94,
+      "visits": 213,
+      "avg_interval_sec": 241
+    },
+    {
+      "date": "2026-05-11",
+      "start": "2026-05-11T08:00:58Z",
+      "end": "2026-05-11T19:22:17Z",
+      "duration_hours": 11.36,
+      "visits": 156,
+      "avg_interval_sec": 278
+    },
+    {
+      "date": "2026-05-10",
+      "start": "2026-05-10T08:02:31Z",
+      "end": "2026-05-10T22:41:05Z",
+      "duration_hours": 14.64,
+      "visits": 198,
+      "avg_interval_sec": 252
+    },
+    {
+      "date": "2026-05-09",
+      "start": "2026-05-09T08:00:17Z",
+      "end": "2026-05-09T20:15:44Z",
+      "duration_hours": 12.26,
+      "visits": 169,
+      "avg_interval_sec": 261
+    },
+    {
+      "date": "2026-05-08",
+      "start": "2026-05-08T08:04:02Z",
+      "end": "2026-05-08T17:38:29Z",
+      "duration_hours": 9.57,
+      "visits": 132,
+      "avg_interval_sec": 259
+    },
+    {
+      "date": "2026-05-07",
+      "start": "2026-05-07T08:01:19Z",
+      "end": "2026-05-07T21:54:03Z",
+      "duration_hours": 13.88,
+      "visits": 201,
+      "avg_interval_sec": 247
+    },
+    {
+      "date": "2026-05-06",
+      "start": "2026-05-06T08:00:45Z",
+      "end": "2026-05-06T23:12:58Z",
+      "duration_hours": 15.20,
+      "visits": 218,
+      "avg_interval_sec": 238
+    },
+    {
+      "date": "2026-05-05",
+      "start": "2026-05-05T08:03:37Z",
+      "end": "2026-05-05T18:49:22Z",
+      "duration_hours": 10.76,
+      "visits": 147,
+      "avg_interval_sec": 263
+    },
+    {
+      "date": "2026-05-04",
+      "start": "2026-05-04T08:02:11Z",
+      "end": "2026-05-04T22:07:44Z",
+      "duration_hours": 14.09,
+      "visits": 193,
+      "avg_interval_sec": 249
+    },
+    {
+      "date": "2026-05-03",
+      "start": "2026-05-03T08:00:33Z",
+      "end": "2026-05-03T20:31:17Z",
+      "duration_hours": 12.51,
+      "visits": 172,
+      "avg_interval_sec": 262
+    },
+    {
+      "date": "2026-05-02",
+      "start": "2026-05-02T08:01:55Z",
+      "end": "2026-05-02T21:18:40Z",
+      "duration_hours": 13.28,
+      "visits": 184,
+      "avg_interval_sec": 258
+    },
+    {
+      "date": "2026-05-01",
+      "start": "2026-05-01T08:00:08Z",
+      "end": "2026-05-01T16:44:29Z",
+      "duration_hours": 8.74,
+      "visits": 119,
+      "avg_interval_sec": 264
+    },
+    {
+      "date": "2026-04-30",
+      "start": "2026-04-30T08:03:44Z",
+      "end": "2026-04-30T23:41:02Z",
+      "duration_hours": 15.62,
+      "visits": 224,
+      "avg_interval_sec": 237
+    },
+    {
+      "date": "2026-04-29",
+      "start": "2026-04-29T08:02:28Z",
+      "end": "2026-04-29T19:57:15Z",
+      "duration_hours": 11.91,
+      "visits": 163,
+      "avg_interval_sec": 262
+    },
+    {
+      "date": "2026-04-28",
+      "start": "2026-04-28T08:00:52Z",
+      "end": "2026-04-28T22:23:37Z",
+      "duration_hours": 14.38,
+      "visits": 196,
+      "avg_interval_sec": 251
+    },
+    {
+      "date": "2026-04-27",
+      "start": "2026-04-27T08:01:14Z",
+      "end": "2026-04-27T20:48:51Z",
+      "duration_hours": 12.79,
+      "visits": 176,
+      "avg_interval_sec": 260
+    },
+    {
+      "date": "2026-04-26",
+      "start": "2026-04-26T08:04:07Z",
+      "end": "2026-04-26T17:22:18Z",
+      "duration_hours": 9.30,
+      "visits": 128,
+      "avg_interval_sec": 261
+    },
+    {
+      "date": "2026-04-25",
+      "start": "2026-04-25T08:00:29Z",
+      "end": "2026-04-25T23:55:14Z",
+      "duration_hours": 15.91,
+      "visits": 229,
+      "avg_interval_sec": 235
+    },
+    {
+      "date": "2026-04-24",
+      "start": "2026-04-24T08:02:03Z",
+      "end": "2026-04-24T21:04:47Z",
+      "duration_hours": 13.05,
+      "visits": 179,
+      "avg_interval_sec": 261
+    },
+    {
+      "date": "2026-04-23",
+      "start": "2026-04-23T08:01:38Z",
+      "end": "2026-04-23T19:33:22Z",
+      "duration_hours": 11.53,
+      "visits": 158,
+      "avg_interval_sec": 263
+    },
+    {
+      "date": "2026-04-22",
+      "start": "2026-04-22T08:03:19Z",
+      "end": "2026-04-22T22:51:09Z",
+      "duration_hours": 14.80,
+      "visits": 207,
+      "avg_interval_sec": 243
+    },
+    {
+      "date": "2026-04-21",
+      "start": "2026-04-21T08:00:41Z",
+      "end": "2026-04-21T18:17:55Z",
+      "duration_hours": 10.29,
+      "visits": 141,
+      "avg_interval_sec": 262
+    },
+    {
+      "date": "2026-04-20",
+      "start": "2026-04-20T08:02:57Z",
+      "end": "2026-04-20T23:28:33Z",
+      "duration_hours": 15.43,
+      "visits": 221,
+      "avg_interval_sec": 239
+    },
+    {
+      "date": "2026-04-19",
+      "start": "2026-04-19T08:01:22Z",
+      "end": "2026-04-19T20:44:08Z",
+      "duration_hours": 12.71,
+      "visits": 174,
+      "avg_interval_sec": 262
+    },
+    {
+      "date": "2026-04-18",
+      "start": "2026-04-18T08:00:04Z",
+      "end": "2026-04-18T21:59:41Z",
+      "duration_hours": 13.99,
+      "visits": 191,
+      "avg_interval_sec": 263
+    },
+    {
+      "date": "2026-04-17",
+      "start": "2026-04-17T08:03:48Z",
+      "end": "2026-04-17T16:52:27Z",
+      "duration_hours": 8.81,
+      "visits": 121,
+      "avg_interval_sec": 261
+    },
+    {
+      "date": "2026-04-16",
+      "start": "2026-04-16T08:02:14Z",
+      "end": "2026-04-16T22:37:59Z",
+      "duration_hours": 14.60,
+      "visits": 203,
+      "avg_interval_sec": 259
+    },
+    {
+      "date": "2026-04-15",
+      "start": "2026-04-15T08:01:07Z",
+      "end": "2026-04-15T19:48:34Z",
+      "duration_hours": 11.79,
+      "visits": 161,
+      "avg_interval_sec": 264
+    },
+    {
+      "date": "2026-04-14",
+      "start": "2026-04-14T08:00:33Z",
+      "end": "2026-04-14T23:44:17Z",
+      "duration_hours": 15.73,
+      "visits": 226,
+      "avg_interval_sec": 236
+    }
+  ]
+}
